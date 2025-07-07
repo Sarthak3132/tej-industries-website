@@ -1,0 +1,237 @@
+.service-page {
+  min-height: 100vh;
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+}
+
+.service-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.language-toggle-service {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #16a34a;
+  color: white;
+  border: 2px solid #16a34a;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-family: 'Outfit', sans-serif;
+}
+
+.language-toggle-service:hover {
+  background-color: white;
+  color: #16a34a;
+}
+
+.service-header h1 {
+  font-size: 3.5rem;
+  color: #16a34a;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.service-header .btn-primary {
+  margin-bottom: 2rem;
+}
+
+.service-description {
+  font-size: 1.2rem;
+  color: #374151;
+  line-height: 1.7;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.service-content h2 {
+  font-size: 2.5rem;
+  color: #16a34a;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  text-align: center;
+  margin: 4rem 0 3rem 0;
+}
+
+.offerings-grid,
+.benefits-grid,
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.offering-item,
+.benefit-item,
+.project-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border: 2px solid #dcfce7;
+  transition: all 0.3s ease;
+}
+
+.offering-item:hover,
+.benefit-item:hover,
+.project-item:hover {
+  transform: translateY(-5px);
+  border-color: #22c55e;
+}
+
+.offering-item i,
+.benefit-item i,
+.project-item i {
+  font-size: 3rem;
+  color: #16a34a;
+  margin-bottom: 1rem;
+}
+
+.offering-item h3,
+.benefit-item h3,
+.project-item h3 {
+  color: #16a34a;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.step-item {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border: 2px solid #dcfce7;
+  transition: all 0.3s ease;
+}
+
+.step-item:hover {
+  transform: translateY(-5px);
+  border-color: #22c55e;
+}
+
+.step-number {
+  width: 60px;
+  height: 60px;
+  background: #16a34a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 auto 1rem auto;
+}
+
+.step-item h3 {
+  color: #16a34a;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.service-buttons {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 1.2rem 2.5rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Outfit', sans-serif;
+}
+
+.btn-primary {
+  background-color: #16a34a;
+  color: white;
+  box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #15803d;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(22, 163, 74, 0.4);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #16a34a;
+  border: 2px solid #16a34a;
+}
+
+.btn-secondary:hover {
+  background-color: #16a34a;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  background-color: #16a34a;
+  color: white;
+  transform: translateY(0);
+}
+
+@media (hover: none) {
+  .btn-secondary:hover {
+    background-color: transparent;
+    color: #16a34a;
+    transform: none;
+  }
+  
+  .btn-secondary:active {
+    background-color: #16a34a;
+    color: white;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .service-page {
+    padding: 4rem 0;
+  }
+  
+  .service-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .service-content h2 {
+    font-size: 2rem;
+  }
+  
+  .service-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    max-width: 300px;
+  }
+}
