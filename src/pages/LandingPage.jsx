@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import './LandingPage.css';
 import heroImage from '../assets/images/hero-section.webp';
 import { translations } from '../utils/translations';
+import ImageSlider from '../components/ImageSlider';
+
+
 
 const LandingPage = ({ setCurrentPage, language, setLanguage }) => {
   const t = translations[language] || translations.en;
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   
   const handleContactSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +21,7 @@ const LandingPage = ({ setCurrentPage, language, setLanguage }) => {
       mobile: formData.get('mobile')
     };
     
+    setIsLoading(true);
     try {
       const response = await fetch('https://tejindustries-backend.onrender.com/api/contact/submit', {
         method: 'POST',
@@ -27,19 +32,21 @@ const LandingPage = ({ setCurrentPage, language, setLanguage }) => {
       });
       
       if (response.ok) {
-        setAlertMessage('Your message has been received we will contact you shortly');
+        setAlertMessage(t.formSentSuccess);
         setShowAlert(true);
         setTimeout(() => setShowAlert(false), 4000);
         e.target.reset();
       } else {
-        setAlertMessage('Failed to send message. Please try again.');
+        setAlertMessage(t.formSentError);
         setShowAlert(true);
         setTimeout(() => setShowAlert(false), 4000);
       }
     } catch (error) {
-      setAlertMessage('Failed to send message. Please try again.');
+      setAlertMessage(t.formSentError);
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 4000);
+    } finally {
+      setIsLoading(false);
     }
   };
   useEffect(() => {
@@ -54,6 +61,8 @@ const LandingPage = ({ setCurrentPage, language, setLanguage }) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-in');
+        } else {
+          entry.target.classList.remove('animate-in');
         }
       });
     }, observerOptions);
@@ -183,6 +192,9 @@ const LandingPage = ({ setCurrentPage, language, setLanguage }) => {
         </div>
       </section>
 
+      {/* Image Slider Section */}
+      <ImageSlider />
+
       {/* Contact Section */}
       <section className="contact" id="contact">
         <div className="container">
@@ -194,24 +206,26 @@ const LandingPage = ({ setCurrentPage, language, setLanguage }) => {
               <div className="contact-details">
                 <p><i className="fas fa-envelope"></i> info@tejindustries.com</p>
                 <p><i className="fas fa-phone"></i> +91 98765 43210</p>
-                <p><i className="fas fa-map-marker-alt"></i> 123 Innovation Hub, Tech City, India</p>
+                <p><i className="fas fa-map-marker-alt"></i> {t.address}</p>
               </div>
             </div>
-            <form className="contact-form" onSubmit={handleContactSubmit}>
-              <input type="text" name="name" placeholder="Your Name" required />
-              <input type="email" name="email" placeholder="Your Email" required />
-              <input type="tel" name="mobile" placeholder="Mobile Number" required />
-              <button type="submit" className="btn-primary">{t.sendMessage || 'Send Message'}</button>
+            <form className={`contact-form ${isLoading ? 'loading' : ''}`} onSubmit={handleContactSubmit}>
+              <input type="text" name="name" placeholder={t.yourName} required />
+              <input type="email" name="email" placeholder={t.yourEmail} required />
+              <input type="tel" name="mobile" placeholder={t.mobileNumber} required />
+              <button type="submit" className="btn-primary" disabled={isLoading}>
+                {isLoading ? t.loading : (t.sendMessage || 'Send Message')}
+              </button>
+              {showAlert && (
+                <div className={`form-message ${alertMessage.includes('successfully') || alertMessage.includes('यशस्वीपणे') ? 'success' : 'error'}`}>
+                  {alertMessage}
+                </div>
+              )}
             </form>
           </div>
         </div>
       </section>
-      {showAlert && (
-        <div className="success-alert">
-          <p>{alertMessage}</p>
-          <button onClick={() => setShowAlert(false)}>&times;</button>
-        </div>
-      )}
+
     </main>
   );
 };

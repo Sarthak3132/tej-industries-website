@@ -144,7 +144,22 @@ export const translations = {
     
     // Footer Copyright
     allRightsReserved: 'All rights reserved.',
-    footerDesc: 'Transforming agriculture and business ecosystems across India with innovation and expertise.'
+    footerDesc: 'Transforming agriculture and business ecosystems across India with innovation and expertise.',
+    
+    // Form Placeholders
+    yourName: 'Your Name',
+    yourEmail: 'Your Email',
+    mobileNumber: 'Mobile Number',
+    selectTime: 'Select Time',
+    scheduleCallTitle: 'Schedule a Call',
+    
+    // Form Messages
+    loading: 'Sending...',
+    formSentSuccess: 'Form sent successfully!',
+    formSentError: 'Failed to send. Please try again.',
+    
+    // Contact Address
+    address: 'Pune, Maharashtra, India'
   },
   
   mr: {
@@ -292,6 +307,21 @@ export const translations = {
     
     // Footer Copyright
     allRightsReserved: 'सर्व हक्क राखीव.',
-    footerDesc: 'भारतात शेती आणि व्यवसायाचे बदल करतोय नवीन तंत्रज्ञान आणि अनुभवाने.'
+    footerDesc: 'भारतात शेती आणि व्यवसायाचे बदल करतोय नवीन तंत्रज्ञान आणि अनुभवाने.',
+    
+    // Form Placeholders
+    yourName: 'तुमचे नाव',
+    yourEmail: 'तुमचा ईमेल',
+    mobileNumber: 'मोबाइल नंबर',
+    selectTime: 'वेळ निवडा',
+    scheduleCallTitle: 'कॉल शेड्यूल करा',
+    
+    // Form Messages
+    loading: 'पाठवतोय...',
+    formSentSuccess: 'फॉर्म यशस्वीपणे पाठवला!',
+    formSentError: 'पाठवण्यात अयशस्वी. पुन्हा प्रयत्न करा.',
+    
+    // Contact Address
+    address: 'पुणे, महाराष्ट्र, भारत'
   }
 };

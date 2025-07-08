@@ -11,7 +11,7 @@ const ProjectPage = ({ language }) => {
       <div className="container">
         <div className="service-header">
           <h1>{t.projectPageTitle}</h1>
-          <button className="btn-primary" onClick={() => window.location.href = 'tel:9922100849'}>{t.enquireNow}</button>
+          <button className="btn-primary" onClick={() => window.location.href = 'tel:+919922100849'}>{t.enquireNow}</button>
           <p className="service-description">
             {t.projectPageDesc}
           </p>
@@ -63,7 +63,7 @@ const ProjectPage = ({ language }) => {
           </div>
         </div>
       </div>
-      <AppointmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <AppointmentModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} language={language} />
     </div>
   );
 };

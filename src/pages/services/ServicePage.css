@@ -37,6 +37,7 @@
   letter-spacing: 0.1em;
   margin-bottom: 2rem;
   line-height: 1.2;
+  white-space: pre-line;
 }
 
 .service-header .btn-primary {

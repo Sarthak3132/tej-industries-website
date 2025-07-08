@@ -30,7 +30,7 @@ const Navbar = ({ setCurrentPage, language, setLanguage }) => {
           <a href="#contact" className="navbar-link" onClick={() => { setCurrentPage('home'); closeMenu(); }}>{t.navContact}</a>
           <button 
             className="navbar-lang-toggle"
-            onClick={() => setLanguage(language === 'en' ? 'mr' : 'en')}
+            onClick={() => { setLanguage(language === 'en' ? 'mr' : 'en'); closeMenu(); }}
           >
             {language === 'en' ? 'मराठी' : 'English'}
           </button>
