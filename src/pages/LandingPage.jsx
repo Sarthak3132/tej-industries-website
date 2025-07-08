@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import './LandingPage.css';
 import heroImage from '../assets/images/hero-section.webp';
 import { translations } from '../utils/translations';
-import ImageSlider from '../components/ImageSlider';
+
+// Lazy load ImageSlider component
+const ImageSlider = lazy(() => import('../components/ImageSlider'));
 
 
 
@@ -34,17 +36,17 @@ const LandingPage = ({ setCurrentPage, language, setLanguage }) => {
       if (response.ok) {
         setAlertMessage(t.formSentSuccess);
         setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 4000);
+        setTimeout(() => setShowAlert(false), 1000);
         e.target.reset();
       } else {
         setAlertMessage(t.formSentError);
         setShowAlert(true);
-        setTimeout(() => setShowAlert(false), 4000);
+        setTimeout(() => setShowAlert(false), 1000);
       }
     } catch (error) {
       setAlertMessage(t.formSentError);
       setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 4000);
+      setTimeout(() => setShowAlert(false), 1000);
     } finally {
       setIsLoading(false);
     }
@@ -193,7 +195,19 @@ const LandingPage = ({ setCurrentPage, language, setLanguage }) => {
       </section>
 
       {/* Image Slider Section */}
-      <ImageSlider />
+      <Suspense fallback={
+        <section className="image-slider-section">
+          <div className="container">
+            <div className="slider-container">
+              <div className="slider-placeholder">
+                <div className="loading-spinner"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      }>
+        <ImageSlider />
+      </Suspense>
 
       {/* Contact Section */}
       <section className="contact" id="contact">
@@ -209,19 +223,28 @@ const LandingPage = ({ setCurrentPage, language, setLanguage }) => {
                 <p><i className="fas fa-map-marker-alt"></i> {t.address}</p>
               </div>
             </div>
-            <form className={`contact-form ${isLoading ? 'loading' : ''}`} onSubmit={handleContactSubmit}>
-              <input type="text" name="name" placeholder={t.yourName} required />
-              <input type="email" name="email" placeholder={t.yourEmail} required />
-              <input type="tel" name="mobile" placeholder={t.mobileNumber} required />
-              <button type="submit" className="btn-primary" disabled={isLoading}>
-                {isLoading ? t.loading : (t.sendMessage || 'Send Message')}
-              </button>
-              {showAlert && (
-                <div className={`form-message ${alertMessage.includes('successfully') || alertMessage.includes('यशस्वीपणे') ? 'success' : 'error'}`}>
-                  {alertMessage}
+            <div className="form-container">
+              <form className={`contact-form ${isLoading ? 'loading' : ''}`} onSubmit={handleContactSubmit} key={language}>
+                <input type="text" name="name" placeholder={t.yourName} required key={`name-${language}`} />
+                <input type="email" name="email" placeholder={t.yourEmail} required key={`email-${language}`} />
+                <input type="tel" name="mobile" placeholder={t.mobileNumber} required key={`mobile-${language}`} />
+                <button type="submit" className="btn-primary" disabled={isLoading}>
+                  {t.sendMessage || 'Send Message'}
+                </button>
+              </form>
+              {isLoading && (
+                <div className="form-overlay">
+                  <div className="loading-spinner"></div>
                 </div>
               )}
-            </form>
+              {showAlert && (
+                <div className="form-overlay">
+                  <div className={`overlay-message ${alertMessage.includes('successfully') || alertMessage.includes('यशस्वीपणे') ? 'success' : 'error'}`}>
+                    {alertMessage}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>

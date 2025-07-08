@@ -1,24 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './ImageSlider.css';
-import image1 from '../assets/images/image_1.jpeg';
-import image2 from '../assets/images/image_2.jpeg';
-import image3 from '../assets/images/image_3.jpeg';
-import image4 from '../assets/images/image_4.jpeg';
-import image5 from '../assets/images/image_5.jpeg';
-import image6 from '../assets/images/image_6.jpeg';
-import image7 from '../assets/images/image_7.jpeg';
+import image1 from '../assets/images/image1.webp';
+import image2 from '../assets/images/image2.webp';
+import image3 from '../assets/images/image3.webp';
+import image4 from '../assets/images/image4.webp';
+import image5 from '../assets/images/image5.webp';
+import image6 from '../assets/images/image6.webp';
+import image7 from '../assets/images/image7.webp';
 
 const ImageSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const sliderRef = useRef(null);
   
-  const images = [image3, image4, image5, image6, image7, image1, image2];
+  const images = [image3, image1, image2, image4, image5, image6, image7];
+  
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (sliderRef.current) {
+      observer.observe(sliderRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
+    if (!isVisible) return;
+    
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % images.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, [images.length]);
+  }, [isVisible, images.length]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % images.length);
@@ -28,8 +50,22 @@ const ImageSlider = () => {
     setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  if (!isVisible) {
+    return (
+      <section className="image-slider-section" ref={sliderRef}>
+        <div className="container">
+          <div className="slider-container">
+            <div className="slider-placeholder">
+              <div className="loading-spinner"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+  
   return (
-    <section className="image-slider-section">
+    <section className="image-slider-section" ref={sliderRef}>
       <div className="container">
         <div className="slider-container">
           <button className="slider-btn prev" onClick={prevSlide}>
